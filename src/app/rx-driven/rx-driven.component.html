@@ -3,3 +3,36 @@
     <div *ngFor="let item of items|async" class="item">{{item}}</div>
   </div>
 </div>
+
+<
+<table mat-table [dataSource]="dataSource$" [formGroup]="form">
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">
+      <ng-container *ngIf="editItem$|async as item">
+        <ng-container [ngSwitch]="item && item.id===element.id">
+          <ng-container *ngSwitchCase="true">
+            <mat-form-field>
+              <input matInput formControlName="name">
+            </mat-form-field>
+          </ng-container>
+          <ng-container *ngSwitchDefault>{{element.name}}</ng-container>
+        </ng-container>
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="controls">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button (click)="edit(element)">e</button>
+      <button (click)="cancel()">c</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<button (click)="edit()">+</button>
+{{dataSource|json}}

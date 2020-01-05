@@ -1,0 +1,27 @@
+<button *ngIf="columnsToDisplay.length < displayedColumns.length" mat-raised-button (click)="addColumn()"> Add column</button>
+<button mat-raised-button (click)="removeColumn()"> Remove column</button>
+refreshes: {{refreshCnt}}{{form.value|json}}
+<table mat-table [dataSource]="dataFn()" class="mat-elevation-z8" [formGroup]="form">
+  <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+    <th mat-header-cell *matHeaderCellDef (click)="switchEditedCol(column)" style="cursor: pointer" [ngClass]="editedCol!==column?'anime':''"> {{column}} </th>
+    <td mat-cell *matCellDef="let element;let i =index">
+      <ng-container [ngSwitch]="editedCol===column">
+        <ng-container *ngSwitchCase="true">
+          <mat-form-field>
+            <input [formControlName]="'f'+i" matInput>
+          </mat-form-field>
+        </ng-container>
+        <ng-container *ngSwitchDefault>{{element[column]}}</ng-container>
+      </ng-container>
+
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+</table>
+
+
+<!-- Copyright 2019 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

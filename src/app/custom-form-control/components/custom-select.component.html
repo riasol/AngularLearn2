@@ -1,0 +1,8 @@
+<mat-form-field class="example-full-width">
+  <input matInput [placeholder]="placeholder" #input [formControl]="control" [matAutocomplete]="auto">
+  <mat-error>This is required.</mat-error>
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option value="aa">aa</mat-option>
+    <mat-option value="bb">bb</mat-option>
+  </mat-autocomplete>
+</mat-form-field>
